@@ -24,6 +24,7 @@
 
 import ucdp as u
 
+
 class IotRiscvCompressedDecoderMod(u.AMod):
     filelists: u.ClassVar[u.ModFileLists] = (
         u.ModFileList(
@@ -34,7 +35,6 @@ class IotRiscvCompressedDecoderMod(u.AMod):
             template_filepaths=("sv.mako",),
         ),
     )
-
 
     def _build(self):
         # -----------------------------
