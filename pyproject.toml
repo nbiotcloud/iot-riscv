@@ -35,6 +35,8 @@ classifiers = [
 ]
 requires-python = ">=3.10.0,<4.0"
 dependencies = [
+    "ucdp>=0.19.0",
+    "ucdp-sv>=0.8.3",
 ]
 
 [project.urls]
