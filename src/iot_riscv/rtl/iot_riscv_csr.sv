@@ -1,3 +1,6 @@
+// GENERATE INPLACE BEGIN copyright() =========================================
+// GENERATE INPLACE END copyright =============================================
+
 // GENERATE INPLACE BEGIN fileheader() =========================================
 //
 // Module:     iot_riscv.iot_riscv_csr
