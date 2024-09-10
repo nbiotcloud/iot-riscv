@@ -59,14 +59,14 @@ class IotRiscvCoreMod(u.AMod):
         # -----------------------------
         # Port List
         # -----------------------------
-        self.add_port(u.ClkRstAnType(), "")
-        self.add_port(DftModeType(), "dft_mode_i", title="DFT Mode")
+        self.add_port(u.ClkRstAnType(), "main_i")
+#        self.add_port(DftModeType(), "dft_mode_i", title="DFT Mode")
         self.add_port(u.BitType(), "lock_o")
         # self.add_port(u.BitType(), "run_en_i")
         # IMEM related ports
-        self.add_port(MiniRiscvRamDataType(32, 32), "i_o")
+#        self.add_port(IotRiscvRamDataType(32, 32), "i_o")
         # DMEM related ports
-        self.add_port(MiniRiscvRamDataType(32, 32), "d_o")
+#        self.add_port(IotRiscvRamDataType(32, 32), "d_o")
         # Debug
         self.add_port(u.BitType(), "debug_halt_o")
         self.add_port(u.BitType(), "debug_halt_data_o")
@@ -124,34 +124,34 @@ class IotRiscvCoreMod(u.AMod):
 #
 #        self.add_signal(u.BitType(), "branch_hold_r")
 #
-        # Modules instantiation
-
-        # FETCH Unit
-
-        fetch = IotRiscvFetchMod(
-            self,
-            "u_fetch",
-            paramdict={
-                "pc_size_p": pc_width,
-                "reset_vec_p": reset_vec,
-            },
-        )
-        fetch.con("", "")
-        fetch.con("i_o", "i_o")
-        fetch.con("debug_halt_i", "create(debug_halt_s)")
-        fetch.con("debug_halt_data_i", "create(debug_halt_data_s)")
-        fetch.con("debug_single_step_i", "create(debug_single_step_s)")
-        fetch.con("branch_taken_i", "create(branch_taken_s)")
-        fetch.con("jump_addr_i", "create(jump_addr_s)")
-        fetch.con("if_pc_i", "if_pc_r")
-        fetch.con("hazard_i", "create(hazard_s)")
-        fetch.con("if_rv_o", "create(if_rv_s)")
-        fetch.con("if_valid_o", "create(if_valid_s)")
-        fetch.con("if_rv_op_o", "create(if_rv_op_s)")
-        fetch.con("if_break_exit_o", "create(if_break_exit_r)")
-        # fetch.con("run_en_i", "run_en_i")
-        fetch.con("if_hold_state_o", "create(if_hold_state_s)")
-
+#        # Modules instantiation
+#
+#        # FETCH Unit
+#
+#        fetch = IotRiscvFetchMod(
+#            self,
+#            "u_fetch",
+#            paramdict={
+#                "pc_size_p": pc_width,
+#                "reset_vec_p": reset_vec,
+#            },
+#        )
+#        fetch.con("", "")
+#        fetch.con("i_o", "i_o")
+#        fetch.con("debug_halt_i", "create(debug_halt_s)")
+#        fetch.con("debug_halt_data_i", "create(debug_halt_data_s)")
+#        fetch.con("debug_single_step_i", "create(debug_single_step_s)")
+#        fetch.con("branch_taken_i", "create(branch_taken_s)")
+#        fetch.con("jump_addr_i", "create(jump_addr_s)")
+#        fetch.con("if_pc_i", "if_pc_r")
+#        fetch.con("hazard_i", "create(hazard_s)")
+#        fetch.con("if_rv_o", "create(if_rv_s)")
+#        fetch.con("if_valid_o", "create(if_valid_s)")
+#        fetch.con("if_rv_op_o", "create(if_rv_op_s)")
+#        fetch.con("if_break_exit_o", "create(if_break_exit_r)")
+#        # fetch.con("run_en_i", "run_en_i")
+#        fetch.con("if_hold_state_o", "create(if_hold_state_s)")
+#
 #        # COMPRESSED DECODER
 #        comp_decoder = IotRiscvCompressedDecoderMod(self, "u_compressed_decoder")
 #        comp_decoder.con("rvc_op_i", "u_fetch/if_rvc_op_o")
@@ -191,35 +191,35 @@ class IotRiscvCoreMod(u.AMod):
 #        regfile.con("id_rb_index_i", "id_rb_index_s")
 #        regfile.con("rd_i", "u_lsu/rd_o")
 #
-        alu = IotRiscvAluMod(
-            self,
-            "u_alu",
-            paramdict={
-                "pc_size_p": pc_width,
-            },
-        )
-        alu.con("", "")
-        alu.con("id_rb_value_i", "id_rb_value_s")
-        alu.con("id_ra_value_i", "id_ra_value_s")
-        alu.con("id_op_imm_i", "create(id_op_imm_r)")
-        alu.con("id_imm_i", "create(id_imm_r)")
-        alu.con("id_alu_op_i", "create(id_alu_op_r)")
-        alu.con("id_a_signed_i", "create(id_a_signed_r)")
-        alu.con("id_b_signed_i", "create(id_b_signed_r)")
-        alu.con("id_break_i", "create(id_break_r)")
-        alu.con("id_pc_i", "create(id_pc_r)")
-        alu.con("id_irq_i", "create(id_irq_r)")
-        alu.con("id_mret_i", "create(id_mret_r)")
-        alu.con("id_branch_i", "create(id_branch_r)")
-        alu.con("id_reg_jump_i", "create(id_reg_jump_r)")
-        alu.con("mtvec_i", "mtvec_o")
-        alu.con("mepc_i", "mepc_o")
-        alu.con("branch_taken_o", "branch_taken_s")
-        alu.con("jump_addr_o", "jump_addr_s")
-        alu.con("ex_alu_res_o", "create(ex_alu_res_s)")
-        alu.con("ex_stall_o", "create(ex_stall_s)")
-        alu.con("id_next_pc_i", "create(id_next_pc_r)")
-
+#        alu = IotRiscvAluMod(
+#            self,
+#            "u_alu",
+#            paramdict={
+#                "pc_size_p": pc_width,
+#            },
+#        )
+#        alu.con("", "")
+#        alu.con("id_rb_value_i", "id_rb_value_s")
+#        alu.con("id_ra_value_i", "id_ra_value_s")
+#        alu.con("id_op_imm_i", "create(id_op_imm_r)")
+#        alu.con("id_imm_i", "create(id_imm_r)")
+#        alu.con("id_alu_op_i", "create(id_alu_op_r)")
+#        alu.con("id_a_signed_i", "create(id_a_signed_r)")
+#        alu.con("id_b_signed_i", "create(id_b_signed_r)")
+#        alu.con("id_break_i", "create(id_break_r)")
+#        alu.con("id_pc_i", "create(id_pc_r)")
+#        alu.con("id_irq_i", "create(id_irq_r)")
+#        alu.con("id_mret_i", "create(id_mret_r)")
+#        alu.con("id_branch_i", "create(id_branch_r)")
+#        alu.con("id_reg_jump_i", "create(id_reg_jump_r)")
+#        alu.con("mtvec_i", "mtvec_o")
+#        alu.con("mepc_i", "mepc_o")
+#        alu.con("branch_taken_o", "branch_taken_s")
+#        alu.con("jump_addr_o", "jump_addr_s")
+#        alu.con("ex_alu_res_o", "create(ex_alu_res_s)")
+#        alu.con("ex_stall_o", "create(ex_stall_s)")
+#        alu.con("id_next_pc_i", "create(id_next_pc_r)")
+#
 #        lsu = IotRiscvLsuMod(self, "u_lsu")
 #        lsu.con("", "")
 #        lsu.con("d_o", "d_o")
