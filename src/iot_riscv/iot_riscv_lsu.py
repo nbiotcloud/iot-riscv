@@ -61,7 +61,7 @@ class IotRiscvLsuMod(u.AMod):
         self.add_port(u.BitType(), "mem_stall_comb_o")
         # self.add_port(u.BitType(), "run_en_i")
         # DMEM related ports
-        self.add_port(IotRiscvRamDataType(32, 32), "d_o")
+        self.add_port(IotRiscvRamDataType(addrwidth=32, datawidth=32), "d_o")
 
         self.add_port(WritebackType(), "rd_o")
         # -----------------------------

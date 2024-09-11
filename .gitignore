@@ -10,3 +10,5 @@
 /site/
 /.hypothesis
 .test2ref
+/src/iot_riscv/rtl/template.sv
+pdm.lock

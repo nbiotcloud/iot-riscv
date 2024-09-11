@@ -50,7 +50,7 @@ class IotRiscvFetchMod(u.AMod):
         # -----------------------------
         self.add_port(u.ClkRstAnType(), "main_i", title="Clock and Reset")
         # IMEM related ports
-        self.add_port(IotRiscvRamDataType(32, 32), "i_o")
+        self.add_port(IotRiscvRamDataType(addrwidth=32, datawidth=32), "i_o")
 
         self.add_port(u.BitType(), "debug_halt_i")
         self.add_port(u.BitType(), "debug_halt_data_i")

@@ -86,11 +86,11 @@ class IotRiscvRamDataType(u.AStructType):
         self._add("rdy", u.BitType(), u.BWD, title="Data Ready")
         self._add("grant", u.BitType(), u.BWD, title="Access Granted")
         self._add("rdata", dtype, u.BWD, title="Read Data")
-        self._add("size", u.UintType(default=2), u.FWD, title="Size")
+        self._add("size", u.UintType(2), u.FWD, title="Size")
 
 
 class WritebackType(u.AStructType):
     def _build(self):
-        self._add("index", u.UintType(default=5), u.FWD, title="Address")
-        self._add("value", u.UintType(default=32), u.FWD, title="Data")
+        self._add("index", u.UintType(5), u.FWD, title="Address")
+        self._add("value", u.UintType(32), u.FWD, title="Data")
         self._add("we", u.BitType(), u.FWD, title="Write Enable")

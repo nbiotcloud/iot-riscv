@@ -1,13 +1,72 @@
-// GENERATE INPLACE BEGIN copyright() =========================================
-// GENERATE INPLACE END copyright =============================================
+// GENERATE INPLACE BEGIN copyright() ==========================================
+//
+//  MIT License
+//
+//  Copyright (c) 2024 nbiotcloud
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//
+// GENERATE INPLACE END copyright ==============================================
 
 // GENERATE INPLACE BEGIN fileheader() =========================================
+//
+// Module:     iot_riscv.iot_riscv_fetch
+// Data Model: iot_riscv.iot_riscv_fetch.IotRiscvFetchMod
+//
 // GENERATE INPLACE END fileheader =============================================
 
 // GENERATE INPLACE BEGIN header() =============================================
+`begin_keywords "1800-2009"
+`default_nettype none  // implicit wires are forbidden
 // GENERATE INPLACE END header =================================================
 
 // GENERATE INPLACE BEGIN beginmod() ===========================================
+module iot_riscv_fetch #( // iot_riscv.iot_riscv_fetch.IotRiscvFetchMod
+  parameter integer        pc_size_p   = 32,
+  parameter logic   [31:0] reset_vec_p = 32'h00000000
+) (
+  // main_i
+  input  wire         main_clk_i,
+  input  wire         main_rst_an_i,       // Async Reset (Low-Active)
+  // i_o
+  output logic        i_rd_o,
+  output logic [31:0] i_addr_o,
+  output logic [31:0] i_wdata_o,
+  output logic        i_wr_o,
+  input  wire         i_rdy_i,
+  input  wire         i_grant_i,
+  input  wire  [31:0] i_rdata_i,
+  output logic [1:0]  i_size_o,
+  input  wire         debug_halt_i,
+  input  wire         debug_halt_data_i,
+  input  wire         debug_single_step_i,
+  input  wire         branch_taken_i,
+  input  wire  [31:0] jump_addr_i,
+  input  wire  [31:0] if_pc_i,
+  input  wire         hazard_i,
+  output logic        if_rv_o,
+  output logic        if_valid_o,
+  output logic [31:0] if_rv_op_o,
+  output logic [15:0] if_rvc_op_o,
+  output logic        if_break_exit_o,
+  output logic        if_hold_state_o
+);
 // GENERATE INPLACE END beginmod ===============================================
 
 // GENERATE INPLACE BEGIN logic() ==============================================
@@ -413,7 +472,10 @@
 
 
 // GENERATE INPLACE BEGIN endmod() =============================================
+endmodule // iot_riscv_fetch
 // GENERATE INPLACE END endmod =================================================
 
 // GENERATE INPLACE BEGIN footer() =============================================
+`default_nettype wire
+`end_keywords
 // GENERATE INPLACE END footer =================================================
