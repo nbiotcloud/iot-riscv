@@ -26,9 +26,9 @@ import ucdp as u
 import logging
 
 import tabulate
-from ucdp_amba.ucdp_ahb_slv import AhbSlvStateType, UcdpAhbSlvMod
+from ucdp_amba.ucdp_ahb_slv import AhbSlvStateType, AhbSlvMod
 from ucdp_amba.types import AHB3, AmbaProto, AhbSlvType
-# from cld_dft.types import DftModeType
+from ucdp_glbl.dft import DftModeType
 from ucdp_mem.cld_mem_scram import CldMemScramMod
 from cld_mem.cld_mmpm import Mmpm
 from cld_mem.cld_prio_ram_arbiter import CldPrioRamArbiterMod, MemPortType
@@ -52,7 +52,7 @@ class IotRiscvMemMod(u.AConfigurableMod):
 
     module_id = 0x15C1
     copyright_start_year = 2023
-    copyright_end_year = 2023
+    copyright_end_year = 2024
     tex_doc = ["entity", "ports", "mmpm", "config"]
     addrmap_name = None
     dmem_crossover = False  # we do not support this in the master port of the core right now anymore
@@ -63,8 +63,8 @@ class IotRiscvMemMod(u.AConfigurableMod):
     @staticmethod
     def build_top(**kwargs):
         """Build example top module and return it."""
-        config = CldMiniRiscvMemConfig("test")
-        return CldMiniRiscvMemMod(config=config)
+        config = IotRiscvMemConfig("test")
+        return IotRiscvMemMod(config=config)
 
     def _build(self):
         """Build."""
@@ -76,7 +76,7 @@ class IotRiscvMemMod(u.AConfigurableMod):
         # =====================================================================
         # Port List
         # =====================================================================
-        self.add_port(u.ClkRstAnType(), "", title="Clock and Reset")
+        self.add_port(u.ClkRstAnType(), "main_i", title="Clock and Reset")
         self.add_port(DftModeType(), "dft_mode_i")
         self.add_port(
             MemPortType(addrwidth=imem_addrwidth, datawidth=32, wselwidth=4, backpressure=False),
