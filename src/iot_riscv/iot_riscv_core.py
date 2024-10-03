@@ -37,6 +37,7 @@ from iot_riscv.iot_riscv_int_irq import IotRiscvIntIrqMod
 from iot_riscv.iot_riscv_lsu import IotRiscvLsuMod
 from iot_riscv.iot_riscv_regfile import IotRiscvRegfileMod
 from iot_riscv.types import IotRiscvRamDataType
+from iot_riscv.types import WritebackType
 
 
 class IotRiscvCoreMod(u.AMod):
@@ -46,7 +47,7 @@ class IotRiscvCoreMod(u.AMod):
             # full, inplace, no
             gen="full",
             filepaths=("rtl/{mod.modname}.sv"),
-            template_filepaths=("sv.mako",),
+            template_filepaths=("rtl/{modref.modname}.sv.mako","sv.mako"),
         ),
     )
 
@@ -125,6 +126,8 @@ class IotRiscvCoreMod(u.AMod):
 
         self.add_signal(u.BitType(), "branch_hold_r")
 
+        self.add_signal(WritebackType(), "rd_s")
+
         # Modules instantiation
 
         # FETCH Unit
@@ -190,7 +193,8 @@ class IotRiscvCoreMod(u.AMod):
         regfile.con("id_ready_i", "create(id_ready_s)")
         regfile.con("id_ra_index_i", "id_ra_index_s")
         regfile.con("id_rb_index_i", "id_rb_index_s")
-        regfile.con("rd_i", "u_lsu/rd_o")
+#        regfile.con("rd_i", "u_lsu/rd_o")
+        regfile.con("rd_i", "rd_s")
 
         alu = IotRiscvAluMod(
             self,
@@ -235,6 +239,7 @@ class IotRiscvCoreMod(u.AMod):
         lsu.con("csr_rd_value_i", "u_csr/csr_rd_value_o")
         lsu.con("mem_stall_o", "create(mem_stall_r)")
         lsu.con("mem_stall_comb_o", "create(mem_stall_s)")
+        lsu.con("rd_o", "rd_s")
         # lsu.con("run_en_i", "run_en_i")
 
         csr = IotRiscvCsrMod(
@@ -325,6 +330,7 @@ class IotRiscvCoreMod(u.AMod):
         hz_unit.con("mem_stall_i", "mem_stall_s")
         hz_unit.con("mem_rd_index_i", "ex_rd_index_r")
 #        hz_unit.con("mem_rd_value_i", "regfile_rd_i_value_s")
+        hz_unit.con("mem_rd_value_i","rd_value_s")
 
         hz_unit.con("hazard_o", "hazard_s")
         hz_unit.con("branch_taken_i", "branch_taken_s")

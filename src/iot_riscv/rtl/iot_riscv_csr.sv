@@ -65,6 +65,7 @@ logic [31:0] mscratch_r;
 logic [31:0] mepc_r;
 // GENERATE INPLACE END logic ==================================================
 
+`define dly 1
 
 //CSR Registers
 assign csr_index_s = ex_csr_addr_i;
@@ -72,9 +73,9 @@ assign csr_index_s = ex_csr_addr_i;
 //lint_checking FFWASR off
 always @(posedge clk_i) begin : proc_csr_seq
   case(csr_index_s)
-    12'h305: mtvec_r <= #`dly ex_alu_res_i;
+    12'h305: mtvec_r    <= #`dly ex_alu_res_i;
     12'h340: mscratch_r <= #`dly ex_alu_res_i;
-    12'h341: mepc_r <= #`dly id_pc_i;
+    12'h341: mepc_r     <= #`dly id_pc_i;
     default: ;
   endcase
 end
