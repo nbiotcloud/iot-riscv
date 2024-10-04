@@ -24,7 +24,7 @@
 
 import ucdp as u
 from ucdp_amba.cld   import DataCtrlType, WDataIfType
-from ucdp_amba.types import AHB3, AhbMstType, AmbaProto
+from ucdp_amba.types import AMBA3, AhbMstType, AmbaProto
 from ucdp_glbl.dft import DftModeType
 from solib import typecast
 
@@ -45,10 +45,10 @@ class IotRiscvDmIcacheAhbMstMod(u.AMod):
     """AHB Master for Mini RISC-V Cache."""
 
     copyright_end_year = 2023
-    ahbproto: AmbaProto = u.field(default=AHB3)
+    ahbproto: AmbaProto = u.field(default=AMBA3)
 
     def _build(self):
-        self.add_port(u.ClkRstAnType(), "")
+        self.add_port(u.ClkRstAnType(), "main_i", "CLock and Reset")
         self.add_port(DftModeType(), "dft_mode_i", title="DFT Mode")
 
         self.add_port(DataCtrlType(addrwidth=32, proto=self.ahbproto), "data_ctrl_i")

@@ -25,12 +25,12 @@
 import ucdp as u
 import attr
 from ucdp_amba.ucdp_ahb_ml import UcdpAhbMlMod
-from ucdp_amba.regfile import CldRegfMod, Field, ModuleIdReg, Reg
-from ucdp_amba.types import AhbMstType, AhbProto, AhbSlvType, ApbProto, ApbSlvType, ASecIdType
+from ucdp_regf.ucdp_regf import UcdpRegfMod, Field, ModuleIdReg, Reg
+from ucdp_amba.types import AhbMstType, AmbaProto, AhbSlvType, ApbSlvType, ASecIdType
 from ucdp_glbl.dft import DftModeType
 from ucdp_glbl.ucdp_clk_mgate import CldClkMgateMod
 from ucdp_glbl.irq import IrqType
-from cld_mon.monmux import MonMux
+# from cld_mon.monmux import MonMux
 from sidehwgxconfig import ProgMem, create_gxmodule
 from sideutil.num import calc_next_power_of, calc_unsigned_width
 from tabulate import tabulate
@@ -53,7 +53,7 @@ class IotRiscvAhbMod(u.ATailoredMod):
     major_version, minor_version = 1, 0
     module_id = 0x1338
     config = u.field(kw_only=True)
-    monmux = MonMux.field()
+    # monmux = MonMux.field()
 
     @staticmethod
     def build_top(**kwargs):
@@ -189,7 +189,7 @@ class IotRiscvAhbMod(u.ATailoredMod):
             imst.con("ahb_mst_o", "u_ml/ahb_mst_imem_i")
 
         # APB Debug and Control System
-        regf = CldRegfMod(self, "u_regf", proto=config.apbproto, secnames=config.secnames, addrmap_name="misc")
+        regf = UcdpRegfMod(self, "u_regf", proto=config.apbproto, secnames=config.secnames, addrmap_name="misc")
 
         regf.con("apb_slv_i", "apb_slv_i")
         regf.con("clk_i", "clk_i")
@@ -487,17 +487,17 @@ class IotRiscvAhbMod(u.ATailoredMod):
         # Monitoring
         # -----------------------------
 
-        self.monmux.init(4)
-        self.monmux.create_ports()
-        self.monmux.add_module_id(self.module_id)
+        # self.monmux.init(4)
+        # self.monmux.create_ports()
+        # self.monmux.add_module_id(self.module_id)
 
-        vec = self.monmux.add_vector("ahb", title="AHB Interface")
-        vec.add_slice("htrans", "ahb_mst_htrans_o")
-        vec.add_slice("hwrite", "ahb_mst_hwrite_o")
-        vec.add_slice("hready", "ahb_mst_hready_i")
-        vec.add_slice("hresp", "ahb_mst_hresp_i")
+        # vec = self.monmux.add_vector("ahb", title="AHB Interface")
+        # vec.add_slice("htrans", "ahb_mst_htrans_o")
+        # vec.add_slice("hwrite", "ahb_mst_hwrite_o")
+        # vec.add_slice("hready", "ahb_mst_hready_i")
+        # vec.add_slice("hresp", "ahb_mst_hresp_i")
 
-        self.monmux.add_vector("irq", title="Hardware IRQ's")
+        # self.monmux.add_vector("irq", title="Hardware IRQ's")
 
     def add_irq(self, name, title=None, descr=None, comment=None, route=None, sync=False):
         """
@@ -519,8 +519,8 @@ class IotRiscvAhbMod(u.ATailoredMod):
         port = self.add_port(IrqType(), portname, title=title, descr=descr, comment=comment)
         assert self.config.hw_irqs
         irqmap.add_irq(name, title=title, descr=descr, comment=comment, route=portname, sync=sync)
-        vec = self.monmux.monvectors["irq"]
-        vec.add_slice(f"irq_{name}", port)
+        # vec = self.monmux.monvectors["irq"]
+        # vec.add_slice(f"irq_{name}", port)
         if route:
             self.con(portname, route)
 
@@ -571,8 +571,8 @@ class IotRiscvAhbExampleMod(u.AMod):
                 self._add(2, "apps")
                 self._add(5, "dbg")
 
-        ahb5 = AhbProto("ahb5", secidtype=SecIdType(default=5))
-        apb5 = ApbProto("apb5", secidtype=SecIdType(default=5))
+        ahb5 = AmbaProto("ahb5", secidtype=SecIdType(default=5))
+        apb5 = AmbaProto("apb5", secidtype=SecIdType(default=5))
         exampleconfig = IotRiscvAhbConfig(
             "example",
             ahbproto=ahb5,

@@ -27,7 +27,7 @@ import logging
 
 import tabulate
 from ucdp_amba.ucdp_ahb_slv import AhbSlvStateType, AhbSlvMod
-from ucdp_amba.types import AHB3, AmbaProto, AhbSlvType
+from ucdp_amba.types import AMBA3, AmbaProto, AhbSlvType
 from ucdp_glbl.dft import DftModeType
 from ucdp_mem.cld_mem_scram import CldMemScramMod
 from cld_mem.cld_mmpm import Mmpm
@@ -56,7 +56,7 @@ class IotRiscvMemMod(u.AConfigurableMod):
     tex_doc = ["entity", "ports", "mmpm", "config"]
     addrmap_name = None
     dmem_crossover = False  # we do not support this in the master port of the core right now anymore
-    ahbproto: AmbaProto = u.field(default=AHB3)
+    ahbproto: AmbaProto = u.field(default=AMBA3)
     addrmap = u.field(init=False, factory=lambda: AddrMap(addrwidth=32))
     mmpm = Mmpm.field()
 

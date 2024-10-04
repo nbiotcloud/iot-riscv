@@ -23,7 +23,7 @@
 #
 
 import ucdp as u
-from ucdp_amba.types import AHB3
+from ucdp_amba.types import AMBA3
 from ucdp_tb.cld_tb_stub import CldTbStub
 
 from iot_riscv.iot_riscv_ahb import IotRiscvAhbExampleMod
@@ -53,7 +53,7 @@ class IotRiscvAhbTbMod(u.ATbMod):
         tb_stub.autoconnect_gpio(dut)
         tb_stub.autoconnect_apb_slv_in(dut, mod=f"{dut.name}/u_regf")
 
-        ml.add_master("dut", route=f"{dut.name}/ahb_mst_o", slavenames="tb_ram; tb_ahb2apb", proto=AHB3)
+        ml.add_master("dut", route=f"{dut.name}/ahb_mst_o", slavenames="tb_ram; tb_ahb2apb", proto=AMBA3)
 
         ml.add_slave(
             "dut",

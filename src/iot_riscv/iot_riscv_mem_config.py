@@ -23,7 +23,7 @@
 #
 
 import ucdp as u
-from ucdp_amba.types import AHB3, AhbProto
+from ucdp_amba.types import AMBA3, AmbaProto
 from solib import typecast
 
 # =============================================================================
@@ -56,7 +56,7 @@ class IotRiscvMemConfig(u.AConfig):
     dmem_width = u.field(converter=int, default=32)  # type_=int, default=32),
     imem_width = u.field(converter=int, default=32)  # type_=int, default=32),
     # add_progmems=u.field(converter=)#type_=typecast.Instance(ProgMem), is_list=True),
-    ahbproto: AhbProto = u.field(default=AHB3)
+    ahbproto: AmbaProto = u.field(default=AMBA3)
     dram_scrm_intf: bool = u.field(converter=bool, default=False)
 
     # DMEM

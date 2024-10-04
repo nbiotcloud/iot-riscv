@@ -23,7 +23,7 @@
 #
 
 import ucdp as u
-from ucdp_amba.types import AhbProto, ApbProto
+from ucdp_amba.types import AmbaProto
 from solib import typecast
 from solib.itertools import split
 
@@ -34,8 +34,8 @@ class IotRiscvAhbConfig(IotRiscvAhbConfig):
 
     """Mini RISC-V AHB subsystem configuration."""
 
-    ahbproto: AhbProto = u.field(kw_only=True)
-    apbproto: ApbProto = u.field(kw_only=True)
+    ahbproto: AmbaProto = u.field(kw_only=True)
+    apbproto: AmbaProto = u.field(kw_only=True)
     has_icache = u.field(converter=bool, default=False)
     run_after_reset = u.field(converter=bool, default=True)
     has_prng_intf = u.field(converter=bool, default=True)

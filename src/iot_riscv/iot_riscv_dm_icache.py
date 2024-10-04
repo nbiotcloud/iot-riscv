@@ -24,7 +24,7 @@
 
 import ucdp as u
 from ucdp_amba.cld_ahb_slv import DataCtrlType, RDataIfType
-from ucdp_amba.types import AHB3, AhbMstType, AmbaProto, add_ahb_localparams
+from ucdp_amba.types import AMBA3, AhbMstType, AmbaProto, add_ahb_localparams
 from ucdp_glbl.dft import DftModeType
 from ucdp_glbl.mem import Mmpm
 from ucdp_glbl.mem import CldRamMod
@@ -52,7 +52,7 @@ class IotRiscvDmIcacheMod(u.AMod):
 
     copyright_start_year = 2019
     copyright_end_year = 2023
-    ahbproto: AmbaProto = u.field(default=AHB3)
+    ahbproto: AmbaProto = u.field(default=AMBA3)
     mmpm = Mmpm.field()
     hdl_gen = u.Gen.INLINE
     addrmap_name = ""
