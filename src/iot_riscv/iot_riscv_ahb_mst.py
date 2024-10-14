@@ -88,7 +88,7 @@ class IotRiscvAhbMstMod(u.ATailoredMod):
         self.add_port(AhbMstType(), "ahb_mst_o", title="AHB Master Out", descr="AHB master output")
 
         self.add_port(
-            MiniRiscvRamDataType(datawidth=self.datawidth, addrwidth=32),
+            IotRiscvRamDataType(datawidth=self.datawidth, addrwidth=32),
             "r2a_mem_i",
             # wselwidth=self.datawidth / 8, backpressure=False),
             title="Riscv2AhbMst memory input",

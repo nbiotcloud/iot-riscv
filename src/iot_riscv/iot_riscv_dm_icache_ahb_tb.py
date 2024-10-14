@@ -34,8 +34,15 @@ class IotRiscvDmIcacheAhbTbMod(u.ATbMod):
 
     """Example Module Testbench."""
 
-    copyright_start_year = 2022
-    copyright_end_year = 2024
+    filelists: u.ClassVar[u.ModFileLists] = (
+        u.ModFileList(
+            name="hdl",
+            # full, inplace, no
+            gen="inplace",
+            filepaths=("rtl/{mod.modname}.sv"),
+            template_filepaths=("sv.mako",),
+        ),
+    )
 
     def _build(self):
         tb_stub = CldTbStub(self, tbfreq=48e6)

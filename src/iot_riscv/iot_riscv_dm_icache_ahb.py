@@ -34,8 +34,15 @@ ROM_WORDS_WAIT = [0, 0]
 
 
 class IotRiscvDmIcacheAhbMod(u.AMod):
-    copyright_start_year = 2019
-    copyright_end_year = 2020
+    filelists: u.ClassVar[u.ModFileLists] = (
+        u.ModFileList(
+            name="hdl",
+            # full, inplace, no
+            gen="inplace",
+            filepaths=("rtl/{mod.modname}.sv"),
+            template_filepaths=("sv.mako",),
+        ),
+    )
     module_id = 0xE677
     major_version, minor_version = 1, 0
     tex_doc = ["entity", "ports"]

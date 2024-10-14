@@ -32,8 +32,11 @@ from ucdp_glbl.dft import DftModeType
 from ucdp_mem.cld_mem_scram import CldMemScramMod
 from cld_mem.cld_mmpm import Mmpm
 from cld_mem.cld_prio_ram_arbiter import CldPrioRamArbiterMod, MemPortType
-from cld_mem.cld_ram import CldRamMod
-from cld_mem.cld_rom import CldRomMod, RomContent
+
+from ucdp_glbl.mem import MemIoType
+# from cld_mem.cld_ram import CldRamMod
+# from cld_mem.cld_rom import CldRomMod, RomContent
+
 from sideutil.addrmap import AddrMap
 from sideutil.num import calc_unsigned_width
 
@@ -82,13 +85,13 @@ class IotRiscvMemMod(u.AConfigurableMod):
             MemPortType(addrwidth=imem_addrwidth, datawidth=32, wselwidth=4, backpressure=False),
             "imem_i",
         )
+        
+        # iotype = MemIoType.with_slicewidth(datawidth=32, addrwidth=imem_addrwidth, writable=True, slicewidth=8, err=True)
+
 
         self.add_port(
             MemPortType(
-                addrwidth=dmem_addrwidth,
-                datawidth=32,
-                wselwidth=4,
-                backpressure=False,
+                addrwidth=dmem_addrwidth, datawidth=32, wselwidth=4, backpressure=False,
             ),
             "dmem_i",
         )

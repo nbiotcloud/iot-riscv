@@ -28,12 +28,19 @@ from ucdp_glbl.cld_clk_gate import CldClkGateMod
 
 
 class IotRiscvPrngIntfMod(u.AMod):
-    copyright_start_year = 2019
-    copyright_end_year = 2024
+    filelists: u.ClassVar[u.ModFileLists] = (
+        u.ModFileList(
+            name="hdl",
+            # full, inplace, no
+            gen="inplace",
+            filepaths=("rtl/{mod.modname}.sv"),
+            template_filepaths=("sv.mako",),
+        ),
+    )
     module_id = 0x012D
     major_version, minor_version = 1, 0
     tex_doc = ["ports", "entity"]
-    hdl_gen = u.Gen.INLINE
+    # hdl_gen = u.Gen.INLINE
 
     def _build(self):
         # -----------------------------
