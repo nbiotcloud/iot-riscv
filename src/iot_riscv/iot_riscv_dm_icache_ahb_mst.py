@@ -26,25 +26,32 @@ import ucdp as u
 from ucdp_amba.cld   import DataCtrlType, WDataIfType
 from ucdp_amba.types import AMBA3, AhbMstType, AmbaProto
 from ucdp_glbl.dft import DftModeType
-from solib import typecast
+# from solib import typecast
 
 
 class FSMType(u.AEnumType):
     """SPI Slave FSM States."""
 
-    keytype = u.UintType(1)
-    valuetype = typecast.Name()
+    keytype: u.UintType = u.UintType(1)
+    # valuetype = typecast.Name()
 
     def _build(self):
         self._add(0, "ahb_idle", descr="Idle state")
         self._add(1, "ahb_cmd", descr="AHB Command state")
 
 
-@u.mod
 class IotRiscvDmIcacheAhbMstMod(u.AMod):
     """AHB Master for Mini RISC-V Cache."""
+    filelists: u.ClassVar[u.ModFileLists] = (
+        u.ModFileList(
+            name="hdl",
+            # full, inplace, no
+            gen="inplace",
+            filepaths=("rtl/{mod.modname}.sv"),
+            template_filepaths=("sv.mako",),
+        ),
+    )
 
-    copyright_end_year = 2023
     ahbproto: AmbaProto = u.field(default=AMBA3)
 
     def _build(self):

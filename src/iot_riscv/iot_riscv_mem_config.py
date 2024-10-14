@@ -24,7 +24,7 @@
 
 import ucdp as u
 from ucdp_amba.types import AMBA3, AmbaProto
-from solib import typecast
+# from solib import typecast
 
 # =============================================================================
 #

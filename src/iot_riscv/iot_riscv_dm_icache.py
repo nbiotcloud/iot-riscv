@@ -28,15 +28,15 @@ from ucdp_amba.types import AMBA3, AhbMstType, AmbaProto, add_ahb_localparams
 from ucdp_glbl.dft import DftModeType
 from ucdp_glbl.mem import Mmpm
 from ucdp_glbl.mem import CldRamMod
-from solib import typecast
+# from solib import typecast
 
 
 class CacheStateType(u.AEnumType):
 
     """Cache States."""
 
-    keytype = u.UintType(2)
-    valuetype = typecast.Name()
+    keytype: u.UintType = u.UintType(2)
+    # valuetype = typecast.Name()
 
     def _build(self):
         self._add(0, "idle", title="Idle", descr="SIM is unpowered.")
@@ -50,11 +50,18 @@ class CacheStateType(u.AEnumType):
 class IotRiscvDmIcacheMod(u.AMod):
     """Direct Mapped Instruction Cache for Mini RISC-V Core."""
 
-    copyright_start_year = 2019
-    copyright_end_year = 2023
+    filelists: u.ClassVar[u.ModFileLists] = (
+        u.ModFileList(
+            name="hdl",
+            # full, inplace, no
+            gen="inplace",
+            filepaths=("rtl/{mod.modname}.sv"),
+            template_filepaths=("sv.mako",),
+        ),
+    )
     ahbproto: AmbaProto = u.field(default=AMBA3)
     mmpm = Mmpm.field()
-    hdl_gen = u.Gen.INLINE
+    # hdl_gen = u.Gen.INLINE
     addrmap_name = ""
 
     def _build(self):
