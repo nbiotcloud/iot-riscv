@@ -23,39 +23,38 @@
 #
 
 import ucdp as u
-from ucdp_amba.types import AmbaProto
-from solib import typecast
-from solib.itertools import split
+from ucdp_amba.types import AmbaProto, AMBA3
+# from solib.itertools import split
 
 from iot_riscv.iot_riscv_mem_config import IotRiscvMemConfig
 
 
-class IotRiscvAhbConfig(IotRiscvAhbConfig):
+class IotRiscvAhbConfig(u.AConfig):
 
     """Mini RISC-V AHB subsystem configuration."""
 
-    ahbproto: AmbaProto = u.field(kw_only=True)
-    apbproto: AmbaProto = u.field(kw_only=True)
-    has_icache = u.field(converter=bool, default=False)
-    run_after_reset = u.field(converter=bool, default=True)
-    has_prng_intf = u.field(converter=bool, default=True)
-    dram_scrm_intf = u.field(converter=bool, default=False)
-    reset_sp = u.field(converter=typecast.hex_)
-    reset_pc = u.field(converter=typecast.hex_)
-    irq_vec = u.field(converter=typecast.hex_)
-    apb_dbg_baseaddr = u.field(converter=typecast.hex_, default=0x00040000)
-    bus_baseaddr = u.field(converter=typecast.hex_, default=0x00040000)
-    hw_irqs = u.field(converter=int, default=16)
-    sw_irqs = u.field(converter=int, default=16)
-    irq_en_default = u.field(converter=bool, default=True)
-    has_static_enable = u.field(converter=bool, default=False)
-    core_id = u.field(converter=typecast.hex_, default=0x0000000)
-    riscv_gap_size = u.field(converter=typecast.bytes_, default="0kB")
-    secnames = u.field(converter=split, default=None)
-    ctrl_secnames = u.field(converter=split, default=None)
-    core_secname = u.field(kw_only=True)
-    enable_secnames = u.field(converter=split, default=None)
-    add_progmems = u.field(factory=tuple)
+    ahbproto: AmbaProto = AMBA3
+    apbproto: AmbaProto = AMBA3
+    has_icache : u.cast_booltype = False
+    run_after_reset : u.cast_booltype = True
+    has_prng_intf : u.cast_booltype = True
+    dram_scrm_intf : u.cast_booltype = False
+    reset_sp : u.Hex = 0
+    reset_pc : u.Hex = 0
+    irq_vec  :  u.Hex= 0
+    apb_dbg_baseaddr : u.Hex = 0x00040000
+    bus_baseaddr : u.Hex = 0x00040000
+    hw_irqs : int = 16
+    sw_irqs : int = 16
+    irq_en_default : u.cast_booltype = True
+    has_static_enable : u.cast_booltype = False
+    core_id : u.Hex = 0x0000000
+    riscv_gap_size : u.Bytes = "0kB"
+    secnames : tuple[str, ...] = tuple()
+    ctrl_secnames : tuple[str, ...] = tuple()
+    core_secname : str = ""
+    enable_secnames : tuple[str, ...] = tuple()
+    # add_progmems = u.field(factory=tuple)
 
     @reset_sp.default
     def _reset_sp_default(self):
