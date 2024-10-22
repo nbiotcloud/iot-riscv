@@ -66,11 +66,11 @@ class IotRiscvAhbMod(u.ATailoredMod):
         self.add_port(u.ClkRstAnType(), "main_i", "Clock and Reset")
         self.add_port(DftModeType(), "dft_mode_i")
         self.add_port(AhbMstType(), "ahb_mst_o")
-        self.add_port(ApbSlvType(config.apbproto), "apb_slv_i")
+        self.add_port(ApbSlvType(config.ahbproto), "apb_slv_i")
         self.add_port(AhbSlvType(config.ahbproto), "ahb_slv_i")
         self.add_port(u.BitType(), "exception_o")
         self.add_port(u.BitType(), "tim_halt_o")
-    
+
     #     reset_vec = self.add_localparam(u.UintType(32, default=config.reset_pc), "reset_vec_p")
     #     reset_sp = self.add_localparam(u.UintType(32, default=config.reset_sp), "reset_sp_p")
 
