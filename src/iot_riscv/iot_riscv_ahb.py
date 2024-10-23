@@ -250,7 +250,7 @@ class IotRiscvAhbMod(u.ATailoredMod):
     #             "sw_irq_clear",
     #             u.UintType(config.sw_irqs),
     #             "WO",
-    #             title="Clear RISC-V Sofware IRQs",
+    #             title="Clear RISC-V Software IRQs",
     #             route="create(clear_sw_irq_s)",
     #             updatestrobe=False,
     #         )
@@ -338,7 +338,7 @@ class IotRiscvAhbMod(u.ATailoredMod):
     #             u.BitType(),
     #             "WO",
     #             title=" Update LFSR with prng_intf_lfsr Value with lfsr ",
-    #             descr="Controll signal to update the LFRS of the PRNG Interface",
+    #             descr="Control signal to update the LFRS of the PRNG Interface",
     #         )
     #         Field(
     #             reg,

@@ -22,12 +22,22 @@
 # SOFTWARE.
 #
 
+"""
+This file containst the IOT RISCV Fetch Unit description for UCDP.
+
+"""
+
 import ucdp as u
 
 from iot_riscv.types import IotRiscvRamDataType
 
 
 class IotRiscvFetchMod(u.AMod):
+    """
+    IOT-Riscv Fetch Unit.
+
+    """
+
     filelists: u.ClassVar[u.ModFileLists] = (
         u.ModFileList(
             name="hdl",
@@ -36,7 +46,7 @@ class IotRiscvFetchMod(u.AMod):
             filepaths=("rtl/{mod.modname}.sv"),
             template_filepaths=("sv.mako",),
         ),
-    )    
+    )
 
     def _build(self):
         # -----------------------------
