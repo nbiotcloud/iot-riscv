@@ -24,7 +24,7 @@
 
 [project]
 name = "iot-riscv"
-version = ["dynamic"]
+dynamic = ["version"]
 description = "Tiny RISC-V core for embedded applications, optimized for low power"
 readme = "README.md"
 authors = [
