@@ -24,7 +24,7 @@
 
 [project]
 name = "iot-riscv"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Tiny RISC-V core for embedded applications, optimized for low power"
 readme = "README.md"
 authors = [
@@ -45,6 +45,9 @@ dependencies = [
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[tool.pdm.version]
+source = "scm"
 
 [tool.pdm]
 [tool.pdm.dev-dependencies]
